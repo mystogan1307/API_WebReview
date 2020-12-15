@@ -47,6 +47,7 @@ const ProductDetailSchema = new Schema({
         type: {type: String},
         capacity: {type: String},
     },
+    review:  {type: String},
     createdAt: {type: Date, default: Date.now},
     updatedAt: {type: Date},
     deletedAt: {type: Date},
