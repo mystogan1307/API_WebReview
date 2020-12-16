@@ -68,11 +68,11 @@ exports.addToCart = async (req, res) => {
 };
 exports.getByUserId = async (req, res) => {
   // if (typeof req.params.userId === "undefined") {
-  if (typeof req.user._id === "undefined") {
+  if (typeof req.param._id === "undefined") {
     res.status(422).json({ msg: "invalid data" });
     return;
   }
-  cart.findOne({ userId: req.user._id }, (err, docs) => {
+  cart.findOne({ userId: req.param._id }, (err, docs) => {
     if (err) {
       res.status(500).json({ msg: err });
       return;

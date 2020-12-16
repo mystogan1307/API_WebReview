@@ -7,7 +7,7 @@ const passport = require("passport");
 
 const route = express.Router();
 
-route.post('/addtocart',passport.authenticate("jwt", {session: false}), cart_controller.addToCart);
+route.post('/addtocart', cart_controller.addToCart);
 // route.get('/:userId', cart_controller.getByUserId);
 route.get('/', cart_controller.getByUserId);
 route.post('/update',passport.authenticate("jwt", {session: false}), cart_controller.update);
