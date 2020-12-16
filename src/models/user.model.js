@@ -19,6 +19,10 @@ const UserSchema = new Schema({
         verifyToken: { type: String },
         isActive: { type: Boolean }
     },
+    cart: {
+        type: Object,
+        required: false
+    },
     createdAt: { type: Date, default: Date.now() },
     updatedAt: { type: Date },
     deletedAt: { type: Date },

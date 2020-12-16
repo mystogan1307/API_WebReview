@@ -18,6 +18,9 @@ const labelRoute = require("./label.route");
 const userRoute = require("./user.route");
 const roleRoute = require("./role.route");
 
+const cartRoute = require("./cart.router");
+const billRoute = require("./bill.router");
+
 
 const routes = (app) => {
     app.use(cors());
@@ -27,6 +30,10 @@ const routes = (app) => {
     app.use('/label', labelRoute);
     app.use('/user', passport.authenticate('jwt', {session: false}), userRoute);
     app.use('/role', roleRoute);
+    app.use('/cart', cartRoute);
+    app.use('/bill', billRoute);
+
+
 }
 
 module.exports = routes;

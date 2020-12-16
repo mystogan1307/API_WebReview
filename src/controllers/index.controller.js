@@ -11,6 +11,10 @@ const commentController = require("./comment.controller");
 const userController = require("./user.controller");
 const labelController = require("./label.controller");
 const roleController = require("./role.controller");
+const cart_controller = require("./cart.controller");
+const bill_controller = require("./bill.controller");
+
+
 
 
 module.exports = {
@@ -19,5 +23,8 @@ module.exports = {
     commentController,
     userController,
     labelController,
-    roleController
+    roleController,
+    cart_controller,
+    bill_controller
+
 }

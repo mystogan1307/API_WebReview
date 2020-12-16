@@ -10,6 +10,7 @@ const ProductSchema = new Schema({
     price: {type: Number},
     score: {type: Number},
     commentAmount: {type: Number, default: 0},
+    number: {type: Number},
     createdAt: {type: Date, default: Date.now},
     updatedAt: {type: Date},
     deletedAt: {type: Date},
