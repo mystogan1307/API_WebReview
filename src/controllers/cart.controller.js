@@ -1,22 +1,19 @@
 const cart = require("../models/cart.model");
 
 exports.addToCart = async (req, res) => {
-  if (
-    typeof req.body.products === "undefined"
-  ) {
+  if (typeof req.body.products === "undefined") {
     res.status(422).json({ msg: "invalid data" });
     return;
   }
-  // const { userId, products } = req.body;
-  const userId = req.user._id;
-  const {products } = req.body;
-  
+  const { userId, products } = req.body;
+  // const userId = req.user._id;
+  // const { products } = req.body;
 
   var cartFind;
   // try {
-    cartFind = await cart.findOne({ userId: userId });
+  cartFind = await cart.findOne({ userId: userId });
   // } catch (err) {
-  
+
   //   const cart_new = new cart({
   //     userId: userId,
   //     products: products
@@ -33,8 +30,9 @@ exports.addToCart = async (req, res) => {
   if (cartFind === null) {
     const cart_new = new cart({
       userId: userId,
-      products: products
+      products: products,
     });
+
     let cartsave;
     try {
       cartsave = await cart_new.save();
@@ -45,9 +43,10 @@ exports.addToCart = async (req, res) => {
     res.status(200).json({ msg: "success" });
     return;
   }
+  console.log("------", products);
   for (let i = 0; i < products.length; i++) {
     let index = cartFind.products.findIndex(
-      element => products[i].productId === element.productId
+      (element) => products[i].productId === element.productId
     );
     if (index === -1) {
       cartFind.products.push(products[i]);
@@ -56,9 +55,11 @@ exports.addToCart = async (req, res) => {
     }
   }
 
+  console.log(cartFind);
+
   try {
     await cart.findByIdAndUpdate(cartFind._id, {
-      $set: { products: cartFind.products }
+      $set: { products: cartFind.products },
     });
   } catch (err) {
     res.status(500).json({ msg: err });
@@ -68,11 +69,12 @@ exports.addToCart = async (req, res) => {
 };
 exports.getByUserId = async (req, res) => {
   // if (typeof req.params.userId === "undefined") {
-  if (typeof req.user._id === "undefined") {
+  if (typeof req.params.userId === "undefined") {
+    console.log(req.params);
     res.status(422).json({ msg: "invalid data" });
     return;
   }
-  cart.findOne({ userId: req.user._id }, (err, docs) => {
+  cart.findOne({ userId: req.params.userId }, (err, docs) => {
     if (err) {
       res.status(500).json({ msg: err });
       return;
@@ -81,15 +83,12 @@ exports.getByUserId = async (req, res) => {
   });
 };
 exports.update = async (req, res) => {
-  if (
-    typeof req.body.product === "undefined"
-  ) {
+  if (typeof req.body.product === "undefined") {
     res.status(422).json({ msg: "invalid data" });
     return;
   }
-  // const { userId, product } = req.body;
-  const userId = req.user._id;
-  const {product } = req.body;
+  const { userId, product } = req.body;
+  // const userId = req.user._id;
   var cartFind = null;
   try {
     cartFind = await cart.findOne({ userId: userId });
@@ -102,7 +101,7 @@ exports.update = async (req, res) => {
     return;
   }
   let index = cartFind.products.findIndex(
-    element => element.productId === product.productId
+    (element) => element.productId === product.productId
   );
   if (index === -1) {
     res.status(404).json({ msg: "product not found in list" });
@@ -111,7 +110,7 @@ exports.update = async (req, res) => {
   cartFind.products[index].count = Number(product.count);
   try {
     await cart.findByIdAndUpdate(cartFind._id, {
-      $set: { products: cartFind.products }
+      $set: { products: cartFind.products },
     });
   } catch (err) {
     res.status(500).json({ msg: err });
@@ -120,15 +119,13 @@ exports.update = async (req, res) => {
   res.status(200).json({ msg: "success" });
 };
 exports.delete = async (req, res) => {
-  if (
-    typeof req.body.productId === "undefined"
-  ) {
+  if (typeof req.body.productId === "undefined") {
     res.status(422).json({ msg: "invalid data" });
     return;
   }
-  // const { userId, productId } = req.body;
-  const userId = req.user._id;
-  const {productId } = req.body;
+  const { userId, productId } = req.body;
+  // const userId = req.user._id;
+  // const { productId } = req.body;
   var cartFind = null;
   try {
     cartFind = await cart.findOne({ userId: userId });
@@ -141,7 +138,7 @@ exports.delete = async (req, res) => {
     return;
   }
   let index = cartFind.products.findIndex(
-    element => element.productId === productId
+    (element) => element.productId === productId
   );
   if (index === -1) {
     res.status(404).json({ msg: "product not found in list" });
@@ -150,7 +147,7 @@ exports.delete = async (req, res) => {
   cartFind.products.splice(index, 1);
   try {
     await cart.findByIdAndUpdate(cartFind._id, {
-      $set: { products: cartFind.products }
+      $set: { products: cartFind.products },
     });
   } catch (err) {
     res.status(500).json({ msg: err });
@@ -162,18 +159,17 @@ exports.removeCartByIDUser = async (userId) => {
   try {
     cartFind = await cart.findOne({ userId: userId });
   } catch (err) {
-    console.log(err)
+    console.log(err);
     return false;
   }
   try {
     await cartFind.remove();
-  }
-  catch(err) {
+  } catch (err) {
     console.log(err);
     return false;
   }
   return true;
-}
+};
 
 exports.getTotalPrice = async (req, res) => {
   // if (typeof req.params.userId === "undefined") {
@@ -188,18 +184,14 @@ exports.getTotalPrice = async (req, res) => {
   //   res.status(200).json({ data: docs });
   // });
 
-
-
-  if (
-    typeof req.user._id === "undefined"
-  ) {
+  if (typeof req.params.userId === "undefined") {
     res.status(422).json({ msg: "invalid data" });
     return;
   }
-  const { userId } = req.user._id;
+  const { userId } = req.params.userId;
   var cartFind = null;
   try {
-    cartFind = await cart.findOne({ userId: userId });
+    cartFind = await cart.findOne({ userId: req.params.userId });
   } catch (err) {
     res.status(500).json({ msg: err });
     return;
@@ -209,10 +201,10 @@ exports.getTotalPrice = async (req, res) => {
     return;
   }
 
-  var tempPrice = 0 ;
+  var tempPrice = 0;
   for (let i = 0; i < cartFind.products.length; i++) {
-      tempPrice += cartFind.products[i].count*cartFind.products[i].price;
-    }
+    tempPrice += cartFind.products[i].count * cartFind.products[i].price;
+  }
   cartFind.totalPrice = tempPrice;
   console.log(cartFind.totalPrice);
   try {
@@ -221,5 +213,5 @@ exports.getTotalPrice = async (req, res) => {
     res.status(500).json({ msg: err });
     return;
   }
-  res.status(200).json({ msg: "success" });
+  res.status(200).json({ tempPrice });
 };
