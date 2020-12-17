@@ -6,6 +6,7 @@ exports.addToCart = async (req, res) => {
     return;
   }
   const { userId, products } = req.body;
+  console.log("+++++++++++++++++++++", userId, products);
   // const userId = req.user._id;
   // const { products } = req.body;
 

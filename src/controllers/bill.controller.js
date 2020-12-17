@@ -6,14 +6,18 @@ const product = require("../models/product.model");
 //const nodemailer = require("../utils/nodemailer");
 exports.addBill = async (req, res) => {
   if (
-    typeof req.body.address === "undefined"
+    typeof req.body.address === "undefined" ||
+    typeof req.body.name === "undefined" ||
+    typeof req.body.phone === "undefined"
   ) {
     res.status(422).json({ msg: "Invalid data" });
     return;
   }
-  // const {  userId, address} = req.body;
-  const userId = req.user._id;
-  const {  address} = req.body;
+  const { userId, name, phone, address, email } = req.body;
+
+  console.log(req.body);
+  // const userId = req.user._id;
+  // const {  address} = req.body;
 
   var cartFind = null;
   try {
@@ -33,44 +37,45 @@ exports.addBill = async (req, res) => {
   //   res.status(500).json({ msg: "Send email fail" });
   //   return;
   // }
-  for (let i = 0; i < cartFind.products.length; i++) {
+  // for (let i = 0; i < cartFind.products.length; i++) {
 
-    let productFind=null;
-    productFind = await product.findById(cartFind.products[i].productId)
-    if (productFind.number < cartFind.products[i].count) {
-    res.status(404).json ({data: productFind.name,msg:"Het Hang"});
-    return;
-    }
-  }
+  //   let productFind=null;
+  //   productFind = await product.findById(cartFind.products[i].productId)
+  //   if (productFind.number < cartFind.products[i].count) {
+  //   res.status(404).json ({data: productFind.name,msg:"Het Hang"});
+  //   return;
+  //   }
+  // }
 
-  try {
-    for (let i = 0; i < cartFind.products.length; i++) {
-      let productFind=null;
-      productFind = await product.findById(cartFind.products[i].productId)
-      productFind.number -= cartFind.products[i].count;
-      await product.findByIdAndUpdate(productFind._id, productFind);
-      }
-    
-  } catch (error) {
-      res.status(500).json({ msg: err });
-      console.log("sub number product fail");
-    return;
-  }
-  
+  // try {
+  //   for (let i = 0; i < cartFind.products.length; i++) {
+  //     let productFind=null;
+  //     productFind = await product.findById(cartFind.products[i].productId)
+  //     productFind.number -= cartFind.products[i].count;
+  //     await product.findByIdAndUpdate(productFind._id, productFind);
+  //     }
 
+  // } catch (error) {
+  //     res.status(500).json({ msg: err });
+  //     console.log("sub number product fail");
+  //   return;
+  // }
   const new_bill = new bill({
     userId: userId,
     products: cartFind.products,
+    email: email,
     address: address,
-    totalPrice: cartFind.totalPrice
+    name: name,
+    phone: phone,
+    totalPrice: cartFind.totalPrice,
   });
-  // try {
-  //   await cartFind.remove();
-  // } catch (err) {
-  //   res.status(500).json({ msg: err });
-  //   console.log("cart remove fail");
-  //   return;
-  // }
+  try {
+    await cartFind.remove();
+  } catch (err) {
+    res.status(500).json({ msg: err });
+    console.log("cart remove fail");
+    return;
+  }
   try {
     new_bill.save();
   } catch (err) {
@@ -78,7 +83,6 @@ exports.addBill = async (req, res) => {
     console.log("save bill fail");
     return;
   }
-  console.log("abc");
   res.status(201).json({ msg: "success" });
 };
 // exports.verifyPayment = async (req, res) => {
@@ -222,10 +226,10 @@ exports.statisticaRevenueMonth = async (req, res) => {
     billFind = await bill.find({
       date: {
         $gte: new Date(year, month, 1),
-        $lt: new Date(year, month, 30)
-      }
+        $lt: new Date(year, month, 30),
+      },
     });
-    console.log("bbbb",billFind);
+    console.log("bbbb", billFind);
   } catch (err) {
     console.log(err);
     res.status(500).msg({ msg: err });
@@ -334,30 +338,28 @@ exports.getBill = async (req, res) => {
     res.status(500).json({ msg: err });
     return;
   }
-  let totalPage = parseInt((count - 1) / 9 + 1);
-  let { page } = req.params;
+  let totalPage = parseInt((count - 1) / 5 + 1);
+  let { page } = req.query;
   if (parseInt(page) < 1 || parseInt(page) > totalPage) {
     res.status(200).json({ data: [], msg: "Invalid page", totalPage });
     return;
   }
-  bill.find()
-    .skip(9 * (parseInt(page) - 1))
-    .limit(9)
+  bill
+    .find()
+    .skip(5 * (parseInt(page) - 1))
+    .limit(5)
     .exec((err, docs) => {
-        if(err) {
-            console.log(err);
-                    res.status(500).json({ msg: err });
-                    return;
-        }
-        res.status(200).json({ data: docs, totalPage });
-    })
+      if (err) {
+        console.log(err);
+        res.status(500).json({ msg: err });
+        return;
+      }
+      res.status(200).json({ data: docs, totalPage });
+    });
 };
 
 exports.updateBill = async (req, res) => {
-
-  if (
-    typeof req.params.id === "undefined"
-  ) {
+  if (typeof req.params.id === "undefined") {
     res.status(422).json({ msg: "invalid data" });
     return;
   }
