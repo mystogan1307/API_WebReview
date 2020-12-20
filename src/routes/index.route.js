@@ -1,12 +1,4 @@
-// import cors from "cors";
-// import passport from "passport";
 
-// import authRoute from "./auth.route";
-// import productRoute from "./product.route";
-// import commentRoute from "./comment.route";
-// import labelRoute from "./label.route";
-// import userRoute from "./user.route";
-// import roleRoute from "./role.route"
 
 const cors = require("cors");
 const passport = require("passport");

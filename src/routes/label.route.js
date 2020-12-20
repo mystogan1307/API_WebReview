@@ -1,6 +1,4 @@
-// import express from "express";
 
-// import { labelController } from "../controllers/index.controller";
 
 const express = require("express");
 const { labelController } = require("../controllers/index.controller");

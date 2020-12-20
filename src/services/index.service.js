@@ -1,8 +1,4 @@
-// import userService from "./user.service";
-// import productService from "./product.service";
-// import commentService from "./comment.service";
-// import labelService from "./label.service";
-// import roleService from "./role.service";
+
 
 const userService = require("./user.service");
 const productService = require("./product.service");

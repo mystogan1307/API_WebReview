@@ -1,4 +1,4 @@
-//import { roleService } from "../services/index.service";
+
 const { roleService } = require("../services/index.service");
 
 module.exports.getRoles = async (req, res, next) => {

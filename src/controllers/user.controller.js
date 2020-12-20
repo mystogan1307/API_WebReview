@@ -1,10 +1,9 @@
-//import { userService } from "../services/index.service";
+
 const { userService } = require("../services/index.service");
 
 module.exports.updateProfile = async (req, res, next) => {
     try {
-        // console.log(req.user._id, req.user.id);
-        // console.log(typeof(req.user._id), typeof(req.user.id));
+
         await userService.updateProfileById(req.user.id, req.body);
         return res.status(200).send({message: "Update success"})
     } catch (error) {

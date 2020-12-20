@@ -1,4 +1,4 @@
-//import { productService } from "../services/index.service";
+
 const { productService } = require("../services/index.service");
 
 module.exports.createNewProduct = async (req, res, next) => {

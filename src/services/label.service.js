@@ -1,4 +1,4 @@
-//import LabelModel from "../models/label.model";
+
 const LabelModel = require("../models/label.model");
 
 const LIMIT_LABEL = 5;

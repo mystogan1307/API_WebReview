@@ -1,4 +1,4 @@
-//import { labelService } from "../services/index.service";
+
 const { labelService } = require("../services/index.service");
 
 

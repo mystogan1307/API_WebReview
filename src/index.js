@@ -1,12 +1,4 @@
-//import dotenv from "dotenv";
-// import express from "express";
-// import bodyParser from "body-parser";
-// import passport from "passport";
-// import cookieParser from "cookie-parser";
 
-// import routes from "./routes/index.route";
-// import connectDB from "./configs/connectDB";
-// import session from "./configs/session";
 
 const dotenv = require("dotenv");
 const express = require("express");
@@ -39,11 +31,7 @@ app.use(cookieParser());
 app.use(passport.initialize());
 app.use(passport.session());
 
-// app.use(function (req, res, next) {
-//     res.header("Access-Control-Allow-Origin", "YOUR-DOMAIN.TLD"); // update to match the domain you will make the request from
-//     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-//     next();
-// });
+
 
 app.get("/", (req, res) => {
     console.log(req.get("host"))

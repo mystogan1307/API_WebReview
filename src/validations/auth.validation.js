@@ -1,6 +1,4 @@
-// import { check } from "express-validator";
 
-// import { transValidation } from "../lang/vi";
 
 const { check } = require("express-validator");
 const { transValidation } = require("../lang/vi");

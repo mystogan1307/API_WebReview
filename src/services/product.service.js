@@ -1,11 +1,4 @@
-// import multer from "multer";
 
-// import {app} from "../configs/app";
-// import { transError } from "../lang/vi";
-// import ProductModel from "../models/product.model";
-// import ProductDetailModel from "../models/productDetail.model";
-// import commentModel from "../models/comment.model";
-// import UserModel from "../models/user.model";
 
 const multer = require("multer");
 const {app} = require("../configs/app");

@@ -1,7 +1,4 @@
-// import express from "express";
-// import passport from "passport";
 
-// import { commentController } from "../controllers/index.controller";
 
 const express = require("express");
 const passport = require("passport");

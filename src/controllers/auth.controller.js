@@ -1,11 +1,3 @@
-// import passport from "passport";
-// import jwt from "jsonwebtoken";
-// import { validationResult } from "express-validator";
-// import dotenv from "dotenv";
-// dotenv.config();
-
-// import { userService } from "../services/index.service";
-// import { transError } from "../lang/vi";
 
 const passport = require("passport");
 const jwt = require("jsonwebtoken");

@@ -1,5 +1,4 @@
-// import CommentModel from "../models/comment.model";
-// import ProductModel from "../models/product.model";
+
 
 const CommentModel = require("../models/comment.model");
 const ProductModel = require("../models/product.model");

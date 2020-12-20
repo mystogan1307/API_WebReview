@@ -1,4 +1,3 @@
-//import session from "express-session";
 const session = require("express-session");
 
 let config = (app) => {

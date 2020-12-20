@@ -1,10 +1,4 @@
-//import express from "express";
-//import passport from "passport";
 
-// import { authController, userController } from "../controllers/index.controller";
-// import { auth } from "../validations/index.validation";
-// import { initPassportLocal, initPassportJwt } from "../controllers/passportjs/local";
-// import { transError } from "../lang/vi";
 
 const express = require("express");
 const passport = require("passport");

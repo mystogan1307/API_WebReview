@@ -1,12 +1,3 @@
-// import passport from "passport";
-// import passportJwt from "passport-jwt";
-// import passportLocal from "passport-local";
-// import dotenv from "dotenv";
-// dotenv.config();
-
-// import UserModel from "../../models/user.model";
-// import RoleModel from "../../models/role.model";
-// import { transError } from "../../lang/vi";
 
 const passport = require("passport");
 const passportJwt = require("passport-jwt");

@@ -6,28 +6,11 @@ exports.addToCart = async (req, res) => {
     return;
   }
   const { userId, products } = req.body;
-  console.log("+++++++++++++++++++++", userId, products);
-  // const userId = req.user._id;
-  // const { products } = req.body;
+
 
   var cartFind;
-  // try {
   cartFind = await cart.findOne({ userId: userId });
-  // } catch (err) {
-
-  //   const cart_new = new cart({
-  //     userId: userId,
-  //     products: products
-  //   });
-  //   let cartsave;
-  //   try {
-  //     cartsave = await cart_new.save();
-  //   } catch (err) {
-  //     res.status(500).json({ msg: err });
-  //     return;
-  //   }
-  //   return;
-  // }
+  
   if (cartFind === null) {
     const cart_new = new cart({
       userId: userId,
@@ -69,7 +52,7 @@ exports.addToCart = async (req, res) => {
   res.status(200).json({ msg: "success" });
 };
 exports.getByUserId = async (req, res) => {
-  // if (typeof req.params.userId === "undefined") {
+  
   if (typeof req.params.userId === "undefined") {
     console.log(req.params);
     res.status(422).json({ msg: "invalid data" });
@@ -89,7 +72,7 @@ exports.update = async (req, res) => {
     return;
   }
   const { userId, product } = req.body;
-  // const userId = req.user._id;
+  
   var cartFind = null;
   try {
     cartFind = await cart.findOne({ userId: userId });
@@ -125,8 +108,7 @@ exports.delete = async (req, res) => {
     return;
   }
   const { userId, productId } = req.body;
-  // const userId = req.user._id;
-  // const { productId } = req.body;
+
   var cartFind = null;
   try {
     cartFind = await cart.findOne({ userId: userId });
@@ -173,17 +155,6 @@ exports.removeCartByIDUser = async (userId) => {
 };
 
 exports.getTotalPrice = async (req, res) => {
-  // if (typeof req.params.userId === "undefined") {
-  //   res.status(422).json({ msg: "invalid data" });
-  //   return;
-  // }
-  // cart.findOne({ userId: req.params.userId }, (err, docs) => {
-  //   if (err) {
-  //     res.status(500).json({ msg: err });
-  //     return;
-  //   }
-  //   res.status(200).json({ data: docs });
-  // });
 
   if (typeof req.params.userId === "undefined") {
     res.status(422).json({ msg: "invalid data" });

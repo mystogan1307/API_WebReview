@@ -1,6 +1,4 @@
-// import express from "express";
 
-// import { roleController } from "../controllers/index.controller";
 
 const express = require("express");
 const { roleController } = require("../controllers/index.controller");

@@ -1,9 +1,4 @@
-// import bcrypt from "bcrypt";
-// import uuidv4 from "uuid/v4";
-// import multer from "multer";
 
-// import { transError, transSuccess } from "../lang/vi";
-// import {app} from "../configs/app";
 
 const bcrypt = require("bcrypt");
 const uuidv4 = require("uuid").v4;
@@ -33,8 +28,7 @@ function fileFilter(req, file, cb) {
 
 const upload = multer({storage, fileFilter}).single("avatar");
 
-// import UserModel from "../models/user.model";
-// import RoleModel from "../models/role.model";
+
 
 const UserModel = require("../models/user.model");
 const RoleModel = require("../models/role.model");

@@ -1,4 +1,4 @@
-// import { commentService } from "../services/index.service";
+
 const { commentService } = require("../services/index.service");
 
 module.exports.createNewComment = async (req, res, next) => {

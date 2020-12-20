@@ -1,7 +1,4 @@
-// import express from "express";
-// import fs from "fs";
 
-// import { productController } from "../controllers/index.controller";
 
 const express = require("express");
 const fs = require("fs");
